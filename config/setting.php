@@ -70,7 +70,13 @@ $config['APP_HOST_LINK'] 				= APP_HOST;	// 分享链接站点url; 可在setting
 $config['PLUGIN_HOST'] 					= APP_HOST.str_replace(BASIC_PATH,'',PLUGIN_DIR);//插件url目录;
 $config['PLUGIN_HOST_CDN_APP'] 			= '';//支持配置到cdn的插件; 插件名,逗号隔开;
 $config['PLUGIN_HOST_CDN'] 				= $config['PLUGIN_HOST'];//在上面的配置插件中才使用此作为插件静态资源url;
-$config['DEFAULT_PERRMISSIONS'] 		= 0755;
+// $config['DEFAULT_PERRMISSIONS']              = 0755;
+$envPerms = getenv('DEFAULT_PERRMISSIONS');
+if ($envPerms !== false && preg_match('/^0?[0-7]{3,4}$/', $envPerms)) {
+    $config['DEFAULT_PERRMISSIONS'] = octdec($envPerms);
+} else {
+    $config['DEFAULT_PERRMISSIONS'] = 0775;
+}
 $config['DEFAULT_PERRMISSIONS_KOD'] 	= 0700; // 内部文件,nginx才能读写;
 
 $config["ADMIN_ALLOW_USER_SAFE"]		= 0; // 是否允许系统管理员访问用户私密空间,默认关闭;ADMIN_ALLOW_SOURCE为0时无效;当有离职等情况需管理时可打开

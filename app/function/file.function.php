@@ -642,7 +642,7 @@ function move_path($source,$dest,$repeat_add='',$repeat_type='replace'){
  * @param int $mode
  * @return bool
  */
-function mk_dir($dir, $mode = 0755){
+function mk_dir($dir, $mode = DEFAULT_PERRMISSIONS){
 	if (!$dir) return false;
 	if (is_dir($dir) || @mkdir($dir, $mode)){
 		return true;
